@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Filter from "../components/Filter";
 import grammar from "../grammar/grammar";
 
 const Home: NextPage = () => {
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
       </Head>
       <div className="text-center text-3xl p-10 font-bold">
         Welcome to jsParser
+        <Filter></Filter>
       </div>
     </>
   );
