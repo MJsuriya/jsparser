@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "nearley"
+    ],
+    "cSpell.ignoreWords": [
+        "tailwindcss"
     ]
 }
