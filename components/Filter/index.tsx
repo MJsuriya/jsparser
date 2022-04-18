@@ -6,13 +6,30 @@ import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
 import * as React from "react";
 import { useState } from "react";
+import grammar from "../../grammar/grammar";
 
 export default function Filter() {
   const [isValid, setIsValid] = useState(true);
   const [value, setValue] = useState<string>("");
+  const [filterString, setFilterString] = useState<string>("");
+  const nearley = require("nearley");
+
+  const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+
   let handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+    setFilterString("");
+
+    try {
+      setIsValid(true);
+      parser.feed(value);
+      // setFilterString(JSON.stringify(parser.results));
+    } catch (e: any) {
+      setIsValid(false);
+      setFilterString(e.message);
+    }
   };
+
   return (
     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
       <InputLabel htmlFor="standard-adornment-amount">
@@ -31,7 +48,7 @@ export default function Filter() {
           </InputAdornment>
         }
       />
-      {value}
+      <div className="text-sm">{filterString}</div>
     </FormControl>
   );
 }
