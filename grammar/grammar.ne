@@ -1,9 +1,11 @@
 @preprocessor typescript
 
-filter -> input | input:+
+input -> start | start finish | start finish:+ {%(data) => { return data[0].flat()}%}
 
-input -> exp | exp _ logic _ exp | input _ logic _ input
- 
+start -> exp
+
+finish -> _ logic _ exp
+
 exp -> exp1 | exp2 | exp3 | exp4 | exp5
 
 exp1 ->  category1 _ optr _ value1

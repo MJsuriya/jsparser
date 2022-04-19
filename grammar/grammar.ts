@@ -34,13 +34,13 @@ interface Grammar {
 const grammar: Grammar = {
   Lexer: undefined,
   ParserRules: [
-    {"name": "filter", "symbols": ["input"]},
-    {"name": "filter$ebnf$1", "symbols": ["input"]},
-    {"name": "filter$ebnf$1", "symbols": ["filter$ebnf$1", "input"], "postprocess": (d) => d[0].concat([d[1]])},
-    {"name": "filter", "symbols": ["filter$ebnf$1"]},
-    {"name": "input", "symbols": ["exp"]},
-    {"name": "input", "symbols": ["exp", "_", "logic", "_", "exp"]},
-    {"name": "input", "symbols": ["input", "_", "logic", "_", "input"]},
+    {"name": "input", "symbols": ["start"]},
+    {"name": "input", "symbols": ["start", "finish"]},
+    {"name": "input$ebnf$1", "symbols": ["finish"]},
+    {"name": "input$ebnf$1", "symbols": ["input$ebnf$1", "finish"], "postprocess": (d) => d[0].concat([d[1]])},
+    {"name": "input", "symbols": ["start", "input$ebnf$1"], "postprocess": (data) => { return data[0].flat()}},
+    {"name": "start", "symbols": ["exp"]},
+    {"name": "finish", "symbols": ["_", "logic", "_", "exp"]},
     {"name": "exp", "symbols": ["exp1"]},
     {"name": "exp", "symbols": ["exp2"]},
     {"name": "exp", "symbols": ["exp3"]},
@@ -118,7 +118,7 @@ const grammar: Grammar = {
     {"name": "value5$subexpression$2", "symbols": [{"literal":"\""}, /[wW]/, /[aA]/, /[tT]/, /[cC]/, /[hH]/, {"literal":" "}, /[fF]/, /[rR]/, /[eE]/, /[eE]/, {"literal":"\""}], "postprocess": function(d) {return d.join(""); }},
     {"name": "value5", "symbols": ["value5$subexpression$2"]}
   ],
-  ParserStart: "filter",
+  ParserStart: "input",
 };
 
 export default grammar;

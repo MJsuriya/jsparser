@@ -18,17 +18,23 @@ export default function Filter() {
 
   let handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    setFilterString("");
+    parseFilters(value);
+  };
 
+  let parseFilters = (input: string) => {
+    setFilterString("");
+  };
+
+  setTimeout(() => {
     try {
       setIsValid(true);
       parser.feed(value);
-      // setFilterString(JSON.stringify(parser.results));
+      setFilterString(parser.lexer.buffer);
     } catch (e: any) {
       setIsValid(false);
-      setFilterString(e.message);
+      setFilterString("Invalid filter string");
     }
-  };
+  }, 500);
 
   return (
     <FormControl fullWidth sx={{ m: 1 }} variant="standard">
