@@ -8,8 +8,8 @@ const Home: NextPage = () => {
       <Head>
         <title>jsParser</title>
       </Head>
-      <div className="text-center text-3xl p-10 font-bold">
-        Welcome to jsParser
+      <div className="text-3xl p-10 font-bold text-slate-500">
+        Don&apos;t wish for it, start search for it.
         <Filter></Filter>
       </div>
     </>
